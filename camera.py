@@ -75,6 +75,8 @@ class MainWindow(QMainWindow):
             tasks = {executor.submit(face_recognition.compare_faces, [frame_encode], enc, tolerance=tolerance): name for name, enc in self.photos_encodings.items()}
             
             similarity = [name for future in as_completed(tasks) for name, result in [(tasks[future], future.result()[0])] if result]
+
+            return similarity
     
 
     def highlightFace(self, net, frame, conf_threshold=0.7):
