@@ -5,8 +5,6 @@ from datetime import datetime
 
 
 def db_add_camera(frame, name):
-    if not name:  
-        name = ''
 
     _, buffer = cv2.imencode('.jpg', frame)
     image_bytes = buffer.tobytes()

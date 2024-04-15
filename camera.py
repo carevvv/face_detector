@@ -43,6 +43,7 @@ class MainWindow(QMainWindow):
         self.DailyReportButton.clicked.connect(self.open_daily_report)
         self.MonthlyReportButton.clicked.connect(self.open_monthly_report)
         self.counted_faces = 0
+        self.FaceBoxes = []
         self.start_video_stream()
 
     def start_video_stream(self):
@@ -104,19 +105,20 @@ class MainWindow(QMainWindow):
         if not hasFrame:
             return 
 
-        resultImg, faceBoxes = self.highlightFace(faceNet, frame)
+        resultImg, self.FaceBoxes = self.highlightFace(faceNet, frame)
 
         self.person = self.compare_faces(frame)
-        if faceBoxes:
-            if self.person and (datetime.now() - self.face_detected_time).total_seconds() >= 10:
+
+        if self.FaceBoxes:
+            if (datetime.now() - self.face_detected_time).total_seconds() >= 10:
 
                 for temp in self.person:
                     db_add_camera(resultImg, temp)
                     self.detected_persons.append(temp)
                     self.counted_faces += 1
 
-                for i in range(len(faceBoxes) - len(self.person)):
-                    db_add_camera(resultImg, None) 
+                for i in range(len(self.FaceBoxes) - len(self.person)):
+                    db_add_camera(resultImg, "unknown") 
                     self.counted_faces += 1
 
                 self.face_detected_time = datetime.now()
@@ -146,10 +148,10 @@ class MainWindow(QMainWindow):
             self.NameLabel.setText(self.person[0])
             self.HourLabel.setText(datetime.now().strftime('%H'))
             self.MinuteLabel.setText(datetime.now().strftime('%M'))
-        else:
-            self.NameLabel.setText('-')
-            self.HourLabel.setText('-')
-            self.MinuteLabel.setText('-')
+        elif self.FaceBoxes:
+            self.NameLabel.setText('unknown')
+            self.MinuteLabel.setText(datetime.now().strftime('%M'))
+            self.HourLabel.setText(datetime.now().strftime('%H'))
 
 
 
