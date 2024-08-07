@@ -24,7 +24,7 @@
 
 3. **Создать базу данных и запустить скрипт создания БД**:
     ```bash
-    python dbcreate.py
+    python db_create.py
     ```
     
 
