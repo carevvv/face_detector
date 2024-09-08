@@ -2,52 +2,45 @@
 
 ![Face Detection](https://media1.tenor.com/m/B8ra2i-OK9QAAAAC/face-recognition.gif)
 
-### Проект по Обнаружению и Сравнению Лиц
+### Face Detection and Comparison Project
 
-Проект, созданный на языке Python, позволяющий обнаруживать лица и сравнивать их с базой данных. При запуске открывается окно на **PyQT**, которое обрисовывает ваше лицо красной рамкой. Если ваше фото присутствует в базе данных, программа вас узнает и подписывает. Процент сходства можно изменить с помощью переменной `conf_threshold`.
+This project, developed in Python, provides functionality for face detection and comparison with a database. When run, a PyQT window opens that marks your face with a red frame. If your photo is present in the database, the program recognizes and labels you. The similarity percentage can be adjusted using the `conf_threshold` variable.
 
 ---
 
-### ⚙️ Установка
+### ⚙️ Installation
 
-Для установки и запуска проекта следуйте следующим шагам:
+To install and run the project, follow these steps:
 
-1. **Клонировать проект**:
-    ```
+1. Clone the project:
+    
       git clone https://github.com/carevvv/facedetector
-    ```
 
-2. **Скачать зависимости**:
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3. **Создать базу данных и запустить скрипт создания БД**:
-    ```bash
-    python db_create.py
-    ```
+2. Install dependencies:
     
+        pip install -r requirements.txt
 
-4. **Запустить файл**:
+3. Create a database and run the database creation script:
     
-    ```bash
-    python camera.py
-    ```
+        python db_create.py
+
+4. Run the program:
+    
+        python camera.py
 
 ---
 
-### 🛠️ Основные Функции
+### 🛠 Key Features
 
-- 😃 **Обнаружение лиц**: Ваше лицо обрисовывается в красную рамку.
-- 🧠 **Сравнение лиц**: Если ваше фото есть в базе данных, программа вас узнает и подпишет.
-- 🎛️ **Настройка сходства**: Процент сходства можно регулировать переменной `conf_threshold`.
+- 😃 Face Detection: Your face is outlined with a red frame.
+- 🧠 Face Comparison: If your photo is in the database, the program recognizes and labels you.
+- 🎛 Similarity Adjustment: The similarity percentage can be configured with the `conf_threshold` variable.
 
 ---
 
-### 🧑‍💻 Технологии
+### 🧑‍💻 Technologies
 
-- 🌐 **Python**: Основной язык программирования.
-- 🖼️ **OpenCV**: Для обработки изображений.
-- 🖥️ **PyQT5**: Для создания графического интерфейса.
-- 📂 **PostgreSQL**: Для работы с базой данных.
-
+- 🌐 Python: The primary programming language.
+- 🖼 OpenCV: Used for image processing.
+- 🖥 PyQT5: For creating the graphical user interface.
+- 📂 PostgreSQL: For database management.
