@@ -1,46 +1,50 @@
-# 🎨 Face Detection & Comparison 🌈
+# Face Detection and Recognition
 
 ![Face Detection](https://media1.tenor.com/m/B8ra2i-OK9QAAAAC/face-recognition.gif)
 
-### Face Detection and Comparison Project
+A desktop application that detects and recognizes faces in a live camera feed. Detected faces are outlined in the video stream and matched against a gallery of known people; every detection is logged to a PostgreSQL database and can be reviewed in daily and monthly reports.
 
-This project, developed in Python, provides functionality for face detection and comparison with a database. When run, a PyQT window opens that marks your face with a red frame. If your photo is present in the database, the program recognizes and labels you. The similarity percentage can be adjusted using the `conf_threshold` variable.
+## Features
 
----
+- **Face detection.** An OpenCV DNN face detector (SSD, 300×300 input) locates faces in each frame and outlines them. The detection threshold is set by `conf_threshold` (default `0.7`).
+- **Face recognition.** Faces are encoded with the `face_recognition` library (dlib) and compared against reference photos in `photos/`. The matching tolerance is set by `tolerance` (default `0.6`). Comparisons run in parallel with a thread pool.
+- **Detection log.** Each recognized or unknown face is saved with a timestamp and image to PostgreSQL.
+- **Reports.** Daily and monthly reports of detections are available from the GUI.
+- **Evaluation script.** `testing_photos.py` measures recognition accuracy on the `test_photos/` and `compare_photos/` sets.
 
-### ⚙️ Installation
+## Installation
 
-To install and run the project, follow these steps:
+1. Clone the repository:
 
-1. Clone the project:
-    
-      git clone https://github.com/carevvv/facedetector
+   ```bash
+   git clone https://github.com/carevvv/face_detector.git
+   cd face_detector
+   ```
 
-2. Install dependencies:
-    
-        pip install -r requirements.txt
+2. Install the dependencies:
 
-3. Create a database and run the database creation script:
-    
-        python db_create.py
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-4. Run the program:
-    
-        python camera.py
+3. Download the OpenCV face detector model (`opencv_face_detector.pbtxt` and `opencv_face_detector_uint8.pb`) into a `network/` directory.
 
----
+4. Set the PostgreSQL connection parameters in `configuration/config.py` and create the table:
 
-### 🛠 Key Features
+   ```bash
+   python db_create.py
+   ```
 
-- 😃 Face Detection: Your face is outlined with a red frame.
-- 🧠 Face Comparison: If your photo is in the database, the program recognizes and labels you.
-- 🎛 Similarity Adjustment: The similarity percentage can be configured with the `conf_threshold` variable.
+5. Add reference photos of known people to `photos/` (the file name is used as the person's name) and start the application:
 
----
+   ```bash
+   python camera.py
+   ```
 
-### 🧑‍💻 Technologies
+## Tech stack
 
-- 🌐 Python: The primary programming language.
-- 🖼 OpenCV: Used for image processing.
-- 🖥 PyQT5: For creating the graphical user interface.
-- 📂 PostgreSQL: For database management.
+- Python
+- OpenCV (DNN face detection, video capture)
+- face_recognition / dlib (face encodings)
+- PyQt5 (GUI)
+- PostgreSQL with the peewee ORM
